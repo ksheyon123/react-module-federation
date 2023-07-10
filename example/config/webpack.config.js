@@ -2,37 +2,44 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const path = require("path");
 
 module.exports = {
-  entry: "../src/index.tsx",
   mode: "development",
-  output: {
-    path: path.resolve(__dirname, "./dist"),
-    filename: "index_bundle.js",
-  },
-  target: "web",
   devServer: {
-    port: "3000",
-    static: {
-      directory: path.join(__dirname, "..", "public"),
-    },
-    open: true,
+    port: 3000,
     hot: true,
-    liveReload: true,
+  },
+  entry: "./src/index.tsx",
+  output: {
+    filename: "main.js",
+    path: path.join(__dirname, "..", "dist"),
   },
   resolve: {
-    extensions: [".tx", ".tsx", ".js", ".jsx", ".json"],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx|js|jsx)$/,
-        exclude: /node_modules/,
-        use: "babel-loader",
-      },
-    ],
+    alias: {
+      components: path.resolve(__dirname, "..", "src"),
+    },
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "..", "public", "index.html"),
+      template: "./public/index.html",
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
+        },
+      },
+      {
+        test: /\.(ts|tsx)$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
 };
