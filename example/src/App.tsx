@@ -15,6 +15,7 @@ const App = (): JSX.Element => {
   const [curPage, setCurPage] = useState<number>(1);
 
   const onPageChange = (e: number) => {
+    console.log(e);
     const page = e;
     setCurPage(page);
   };
