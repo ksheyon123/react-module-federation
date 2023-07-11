@@ -1,40 +1,74 @@
-import React from "react";
+import React, { ReactNode, useReducer } from "react";
 import { Number } from "./Number";
+import "./Pagination.css";
 
 interface IPaginationProps {
   curPage: number;
-  totalPage: number;
-  onClick: (e: any) => void;
+  totalPage?: number;
+  totalCount: number;
+  pageSize: number;
+  itemPerPage?: number;
+  onPageChange: (e: any) => void;
+  custromRender?: (e: any) => ReactNode;
 }
 
 const Pagination: React.FC<IPaginationProps> = ({
-  curPage,
-  totalPage,
-  onClick,
+  curPage, // Current page
+  totalPage, // Overall pages
+  totalCount, // Number Of Items
+  pageSize, // Number of Pages
+  itemPerPage = 20, // Number of items per page
+  onPageChange,
+  custromRender = null,
 }) => {
-  const numberOfPage = Math.ceil(curPage / totalPage);
+  const lastPage = totalPage || Math.ceil(totalCount / itemPerPage);
+  const pageIdx = Math.floor((curPage - 1) / pageSize);
 
   const onClickGoToFirst = () => {
-    onClick(1);
+    if (curPage - 1 <= 0) return;
+    onPageChange(1);
   };
 
   const onClickGoToPrev = () => {
-    onClick(curPage - 1);
+    if (curPage - 1 <= 0) {
+      return;
+    }
+    onPageChange(curPage - 1);
   };
 
   const onClickGoToNext = () => {
-    onClick(curPage + 1);
+    if (curPage >= lastPage) return;
+    onPageChange(curPage + 1);
   };
 
   const onClickGoToLast = () => {
-    onClick(totalPage);
+    if (curPage >= lastPage) return;
+    onPageChange(lastPage);
   };
+
+  const pages = () => {
+    let p = [];
+    const startPage = pageIdx * pageSize + 1;
+    const endPage =
+      startPage + pageSize >= lastPage ? lastPage + 1 : startPage + pageSize;
+    let i = startPage;
+    for (i; i < endPage; i++) {
+      p.push(i);
+    }
+    return p;
+  };
+
+  const renderNumbers = !!custromRender
+    ? (num: number) => custromRender(num)
+    : (num: number) => (
+        <Number number={num} isActive={false} onClick={onPageChange} />
+      );
 
   return (
     <div className="pagination__wrapper">
       <div onClick={onClickGoToFirst}>{"<<"}</div>
       <div onClick={onClickGoToPrev}>{"<"}</div>
-      <Number number={1} isActive={false} />
+      {pages().map((el) => renderNumbers(el))}
       <div onClick={onClickGoToNext}>{">"}</div>
       <div onClick={onClickGoToLast}>{">>"}</div>
     </div>
