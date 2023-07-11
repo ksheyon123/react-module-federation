@@ -13,9 +13,10 @@ const GlobalStyling = createGlobalStyle`
 
 const App = () => {
   const [curPage, setCurPage] = useState<number>(1);
-  const onClick = (e: any) => {
-    console.log(e);
-    setCurPage(curPage);
+
+  const onPageChange = (e: number) => {
+    const page = e;
+    setCurPage(page);
   };
 
   return (
@@ -24,11 +25,13 @@ const App = () => {
         <GlobalStyling />
         <Pagination
           curPage={curPage}
-          totalPage={3}
+          totalPage={12}
           totalCount={12}
-          onClick={onClick}
+          onPageChange={onPageChange}
           pageSize={5}
-          render={(el) => <div>{el}x</div>}
+          custromRender={(el) => (
+            <div onClick={() => onPageChange(el)}>{el}x</div>
+          )}
         />
       </ThemeProvider>
     </React.StrictMode>
