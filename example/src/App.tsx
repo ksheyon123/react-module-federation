@@ -22,7 +22,14 @@ const App = () => {
     <React.StrictMode>
       <ThemeProvider theme={{}}>
         <GlobalStyling />
-        <Pagination curPage={curPage} totalPage={3} onClick={onClick} />
+        <Pagination
+          curPage={curPage}
+          totalPage={3}
+          totalCount={12}
+          onClick={onClick}
+          pageSize={5}
+          render={(el) => <div>{el}x</div>}
+        />
       </ThemeProvider>
     </React.StrictMode>
   );
