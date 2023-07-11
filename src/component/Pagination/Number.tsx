@@ -1,4 +1,5 @@
 import React from "react";
+import { classNameBinder } from "../../utils/index";
 
 interface INumberProps {
   number: number;
@@ -8,7 +9,14 @@ interface INumberProps {
 }
 
 const Number: React.FC<INumberProps> = ({ number, isActive, onClick }) => {
-  return <div onClick={onClick}>{number}</div>;
+  return (
+    <div
+      className={classNameBinder("pagination__page", "active", isActive)}
+      onClick={() => onClick(number)}
+    >
+      {number}
+    </div>
+  );
 };
 
 export { Number };

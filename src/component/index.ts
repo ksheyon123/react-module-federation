@@ -1,1 +1,4 @@
-export { default as Pagination } from "./Pagination";
+import { Pagination } from "./Pagination";
+import { ComboBox } from "./ComboBox";
+
+export { Pagination, ComboBox };

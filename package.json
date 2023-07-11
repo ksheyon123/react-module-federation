@@ -1,5 +1,5 @@
 {
-  "name": "ksh__pagination__react",
+  "name": "@ksh/react-react-componentkit",
   "version": "1.0.0",
   "description": "Pagination component library for the React",
   "scripts": {

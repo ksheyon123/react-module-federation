@@ -61,18 +61,30 @@ const Pagination: React.FC<IPaginationProps> = ({
   const renderNumbers = !!custromRender
     ? (num: number) => custromRender(num)
     : (num: number) => (
-        <Number number={num} isActive={false} onClick={onPageChange} />
+        <Number
+          number={num}
+          isActive={num === curPage}
+          onClick={onPageChange}
+        />
       );
 
   return (
     <div className="pagination__wrapper">
-      <div onClick={onClickGoToFirst}>{"<<"}</div>
-      <div onClick={onClickGoToPrev}>{"<"}</div>
+      <div className="pagination__first" onClick={onClickGoToFirst}>
+        {"<<"}
+      </div>
+      <div className="pagination__prev" onClick={onClickGoToPrev}>
+        {"<"}
+      </div>
       {pages().map((el) => renderNumbers(el))}
-      <div onClick={onClickGoToNext}>{">"}</div>
-      <div onClick={onClickGoToLast}>{">>"}</div>
+      <div className="pagination__next" onClick={onClickGoToNext}>
+        {">"}
+      </div>
+      <div className="pagination__last" onClick={onClickGoToLast}>
+        {">>"}
+      </div>
     </div>
   );
 };
 
-export default Pagination;
+export { Pagination };
