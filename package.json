@@ -1,7 +1,10 @@
 {
-  "name": "@ksh/react-react-componentkit",
-  "version": "1.0.0",
+  "name": "@Kangseohyun/react-componentkit",
+  "version": "0.0.1",
   "description": "Pagination component library for the React",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/Kangseohyun"
+  },
   "scripts": {
     "rollup": "rollup -c"
   },
