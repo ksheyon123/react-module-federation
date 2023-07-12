@@ -1,9 +1,9 @@
 {
   "name": "@ksheyon123/react-componentkit",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "Component Kit library for the React",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/ksheyon123"
+    "@ksheyon123:registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "rollup": "rollup -c"
