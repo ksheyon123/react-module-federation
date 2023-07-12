@@ -3,3 +3,4 @@ package-lock.json
 dist
 
 rollup.config.js
+.npmrc
