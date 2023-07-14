@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Component Kit library for the React",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/ksheyon123"
+    "@ksheyon123:registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "rollup": "rollup -c"
