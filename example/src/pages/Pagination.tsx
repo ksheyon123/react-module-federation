@@ -1,7 +1,7 @@
 import React from "react";
 
 const Pagination: React.FC = () => {
-  return <></>;
+  return <div>Pagination</div>;
 };
 
 export { Pagination };

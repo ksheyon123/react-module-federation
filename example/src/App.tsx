@@ -1,7 +1,13 @@
-import React, { useState } from "react";
-import { createBrowserRouter } from "react-router-dom";
+import * as React from "react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 import { ThemeProvider, createGlobalStyle } from "styled-components";
 import { Pagination } from "@/pages/Pagination";
+import { Home } from "@/pages";
 
 const GlobalStyling = createGlobalStyle`
   * {
@@ -14,25 +20,33 @@ const GlobalStyling = createGlobalStyle`
 
 const router = createBrowserRouter([
   {
-    path: "/pagination",
-    element: <Pagination />,
+    path: "/",
+    element: (
+      <>
+        <Home />
+        <Outlet />
+      </>
+    ),
+    loader: () => {
+      return "";
+    },
+    children: [
+      {
+        path: "pagination",
+        element: <Pagination />,
+      },
+    ],
   },
 ]);
 
-const App = (): JSX.Element => {
-  const [curPage, setCurPage] = useState<number>(1);
-
-  const onPageChange = (e: number) => {
-    const page = e;
-    setCurPage(page);
-  };
-
+const App = () => {
   return (
-    <React.StrictMode>
-      <ThemeProvider theme={{}}>
-        <GlobalStyling />
-      </ThemeProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    //   <ThemeProvider theme={{}}>
+    //     <GlobalStyling />
+    <RouterProvider router={router} />
+    //   </ThemeProvider>
+    // </React.StrictMode>
   );
 };
 
