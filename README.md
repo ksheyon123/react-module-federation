@@ -19,6 +19,9 @@
 {
   "dependencies": {
     // 기존 의존성 유지
+
+    "@types/react-dom": "^18.0.10",
+    "react-dom": "^18.2.0",
   },
   "devDependencies": {
     // 기존 devDependencies 유지
@@ -29,7 +32,6 @@
     "ts-loader": "^9.4.4"
   },
   "scripts": {
-    "rollup": "rollup -c",
     // 새로운 스크립트 추가
     "start": "webpack serve",
     "build": "webpack --mode production"
@@ -59,3 +61,4 @@
 ```
 
 4. public/index.html 추가
+5. main.ts & bootstap.tsx 추가

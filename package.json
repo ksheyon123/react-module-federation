@@ -4,14 +4,16 @@
   "description": "Component Kit library for the React",
   "scripts": {
     "rollup": "rollup -c",
-    "start": "webpack serve",
-    "build": "webpack --mode production"
+    "start": "webpack server --config config/webpack.config.js",
+    "build": "webpack --config config/webpack.config.js --mode production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.0.10",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^5.1.6"
   },
   "devDependencies": {
@@ -20,10 +22,12 @@
     "@rollup/plugin-typescript": "^11.1.2",
     "@types/webpack": "^5.28.5",
     "@types/webpack-dev-server": "^4.7.2",
+    "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.5.3",
     "rollup": "^3.26.2",
     "rollup-plugin-dts": "^5.3.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "style-loader": "^4.0.0",
     "ts-loader": "^9.4.4",
     "tslib": "^2.6.0",
     "webpack": "^5.88.0",
@@ -35,8 +39,8 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts",
   "directories": {
     "example": "example"
-  }
+  },
+  "types": "dist/index.d.ts"
 }

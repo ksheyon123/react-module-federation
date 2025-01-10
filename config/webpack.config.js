@@ -1,15 +1,10 @@
 // webpack.config.ts
-import path from "path";
-import { Configuration as WebpackConfiguration } from "webpack";
-import { Configuration as WebpackDevServerConfiguration } from "webpack-dev-server";
+const { container } = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 
-interface Configuration extends WebpackConfiguration {
-  devServer?: WebpackDevServerConfiguration;
-}
-import { container } from "webpack";
-import HtmlWebpackPlugin from "html-webpack-plugin";
-
-const config: Configuration = {
+module.exports = {
+  mode: "development",
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -38,8 +33,8 @@ const config: Configuration = {
       filename: "remoteEntry.js",
       exposes: {
         // 컴포넌트 노출 설정
-        "./Button": "./src/component/Button",
-        "./Header": "./src/component/Header",
+        "./Button": "./src/component/ComboBox/ComboBox",
+        "./Pagination": "./src/component/Pagination/Pagination",
         // 추가 컴포넌트들도 같은 방식으로 설정
       },
       shared: {
@@ -59,5 +54,3 @@ const config: Configuration = {
     hot: true,
   },
 };
-
-export default config;
