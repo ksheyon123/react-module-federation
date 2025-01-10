@@ -8,7 +8,7 @@
     "skipLibCheck": true,
 
     // Added
-    "jsx": "react",
+    "jsx": "react-jsx", // webpack: react->jsx 설정 변경
     "module": "ESNext",
     "declaration": true,
     "declarationDir": "types",
@@ -16,7 +16,10 @@
     "outDir": "dist",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    // webpack을 위한 추가 설정
+    "resolveJsonModule": true
   },
+  "include": ["src"], // include 설정 추가
   "exclude": ["**/example"]
 }
