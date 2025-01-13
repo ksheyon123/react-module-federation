@@ -3,9 +3,8 @@
   "version": "0.0.3",
   "description": "Component Kit library for the React",
   "scripts": {
-    "rollup": "rollup -c",
-    "start": "webpack server --config config/webpack.config.js",
-    "build": "webpack --config config/webpack.config.js --mode production"
+    "start": "webpack serve",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
