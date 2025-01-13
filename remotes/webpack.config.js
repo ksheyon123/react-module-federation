@@ -13,6 +13,9 @@ module.exports = {
   output: {
     publicPath: "auto",
   },
+  resolve: {
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
+  },
   module: {
     rules: [
       {
@@ -22,6 +25,11 @@ module.exports = {
         options: {
           presets: ["@babel/preset-react"],
         },
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
       },
     ],
   },
