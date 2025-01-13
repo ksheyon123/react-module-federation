@@ -20,6 +20,5 @@
     // webpack을 위한 추가 설정
     "resolveJsonModule": true
   },
-  "include": ["src"],
-  "exclude": ["**/example"]
+  "include": ["src"]
 }
