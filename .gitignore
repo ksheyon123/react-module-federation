@@ -6,3 +6,6 @@ rollup.config.js
 .npmrc
 
 .github
+
+host/types
+host/remotes

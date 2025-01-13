@@ -62,3 +62,54 @@
 
 4. public/index.html 추가
 5. main.ts & bootstap.tsx 추가
+
+### 2025/01/13 (Mon) Update
+
+`Uncaught Error : Shared module is not available for eager consumption` 발생
+
+> 이슈 처리하기 위해 다양한 방법을 적용 했으나(index.html에 직접 script 작성 등) 해결 안됨.
+> 원인은 내보내는 측에만 비동기 적용을 했으나, import 해서 사용하는 측에도 같은 처리 필요.
+
+```
+// src/index.ts
+
+import("./bootstrap").catch((err) => {
+  console.error("Error loading the app:", err);
+});
+
+// src/bootstrap.tsx
+
+import React from "react";
+import ReactDOM from "react-dom";
+
+import App from "./App";
+
+ReactDOM.render(<App />, document.getElementById("root"));
+
+// App.tsx
+
+import React, { Suspense } from "react";
+const RemoteApp = React.lazy(() => import("host/App"));
+
+const App = () => {
+  return (
+    <div>
+      <div
+        style={{
+          margin: "10px",
+          padding: "10px",
+          textAlign: "center",
+          backgroundColor: "greenyellow",
+        }}
+      >
+        <h1>App1</h1>
+      </div>
+      <Suspense fallback={"loading..."}>
+        <RemoteApp />
+      </Suspense>
+    </div>
+  );
+};
+
+export default App;
+```
