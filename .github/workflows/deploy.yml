@@ -1,0 +1,92 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "host/**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: AWS
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Dependencies
+        working-directory: ./host
+        run: npm install
+
+      - name: Build
+        working-directory: ./host
+        run: npm run build
+
+      - name: Debug AWS Credentials
+        run: |
+          if [ -z "$AWS_ACCESS_KEY_ID" ]; then
+            echo "AWS_ACCESS_KEY_ID is not set"
+          else
+            echo "AWS_ACCESS_KEY_ID is set"
+          fi
+
+          if [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+            echo "AWS_SECRET_ACCESS_KEY is not set"
+          else
+            echo "AWS_SECRET_ACCESS_KEY is set"
+          fi
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: us-east-2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+          audience: sts.amazonaws.com
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # 배포 디렉토리로 이동
+            cd /home/${{ secrets.EC2_USERNAME }}/react-componentkit/host
+
+            # Git pull로 최신 코드 가져오기
+            git fetch --all
+            git checkout main
+            git pull origin main
+
+            # 기존 컨테이너 중지 및 제거
+            docker stop react-component || true
+            docker rm react-component || true
+
+            # 기존 이미지 제거 (force 옵션 추가)
+            docker rmi react-component || true
+
+            # 실행 중인 80 포트 프로세스 확인
+            sudo lsof -i :80
+
+            # 기존 80 포트 프로세스 종료
+            sudo fuser -k 80/tcp || true
+
+            # 새 Docker 이미지 빌드
+            docker build --no-cache -t react-component -f DockerFiles/Dockerfile .
+
+            # 새 컨테이너 실행
+            docker run -d \
+              --name react-component \
+              -p 80:80 \
+              --restart unless-stopped \
+              react-component
