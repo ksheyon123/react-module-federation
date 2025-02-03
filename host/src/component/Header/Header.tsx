@@ -75,5 +75,5 @@ const Header: React.FC<HeaderProps> = ({
   );
 };
 
-export { Header };
+export default Header;
 export type { HeaderProps };

@@ -1,5 +1,5 @@
 import "./styles/global.css";
-import { Header } from "./component/Header/Header";
+import Header from "./component/Header/Header";
 import Button from "./component/Button/Button";
 import { Dropdown } from "./component/Dropdown/Dropdown";
 import { Input } from "./component/Input/Input";
