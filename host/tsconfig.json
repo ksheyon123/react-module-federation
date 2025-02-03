@@ -6,7 +6,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     // Added
     "jsx": "react-jsx", // webpack: react->jsx 설정 변경
     "module": "ESNext",
@@ -20,5 +23,5 @@
     // webpack을 위한 추가 설정
     "resolveJsonModule": true
   },
-  "include": ["src"]
+  "include": ["src", "./src/declaration.d.ts"]
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import defaultBackBtn from "@/assets/arrows_button_left__arrow.png";
 
 interface HeaderProps {
   /** 헤더 로고 컴포넌트 */
@@ -16,6 +17,8 @@ interface HeaderProps {
   height?: string;
   /** 최대 너비 - 기본값: 100% */
   maxWidth?: string;
+  /** 백 버튼 */
+  backBtn?: any;
 }
 
 // 동적으로 변하는 스타일을 위한 styled-components
@@ -48,6 +51,7 @@ const Header: React.FC<HeaderProps> = ({
   showShadow = true,
   height = "64px",
   maxWidth = "100%",
+  backBtn,
 }) => {
   return (
     <HeaderWrapper
@@ -61,6 +65,7 @@ const Header: React.FC<HeaderProps> = ({
         className="mx-auto px-4 h-full flex items-center justify-between"
       >
         <div className="flex items-center gap-3">
+          {backBtn && <img src={defaultBackBtn} />}
           {logo && <div className="flex items-center">{logo}</div>}
           {title && (
             <h1 className="text-xl font-semibold text-gray-900 whitespace-nowrap">
