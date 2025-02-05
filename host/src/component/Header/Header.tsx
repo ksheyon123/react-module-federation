@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import defaultBackBtn from "@/assets/arrows_button_left__arrow.png";
+import "tailwindcss/tailwind.css";
 
 interface HeaderProps {
   /** 헤더 로고 컴포넌트 */
